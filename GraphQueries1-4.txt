@@ -1,6 +1,7 @@
 =====TRAININGS FOR A GIVEN SPOC NAME=====GRAPH 1====
 
 -----Pie Chart------
+--Dummy Data Complete--
 
 //Number of Trainings Requested, for a given SPOC Name
 //With month provided
@@ -18,13 +19,31 @@ AND EXTRACT( MONTH FROM TRF.TRF_DATE_REQUESTED ) IN (10)
 GROUP BY TS.TS_DESC;
 
 ---Bar Graphs----
+---Needs More Dummy Data---
 
-//Requested, In progress, and completed trainings for given SPOC Name
+//Requested, In progress, and completed trainings grouped by SPOC Name
+
+SELECT LT.LD_USER_NAME, COUNT(TRF.TRF_ID)-COUNT(IP.TRF_ID) AS "REQUESTED",
+COUNT(IP.TRF_ID) - COUNT(CT.TRF_ID) AS "IN PROGRESS", 
+COUNT(CT.TRF_ID) AS "CONFIRMED"
+FROM CONFIRMED_TRAINING CT
+RIGHT JOIN IN_PROGRESS_TRAINING IP
+ON CT.TRF_ID = IP.TRF_ID
+RIGHT JOIN TRAINING_REQUEST_FORM TRF
+ON IP.TRF_ID = TRF.TRF_ID
+JOIN VERTICAL_TYPE VT
+ON TRF.VER_ID = VT.VER_ID
+JOIN LD_TEAM LT
+ON VT.VER_ID = LT.LD_VER_REP
+GROUP BY LT.LD_USER_NAME;
+
+
 
 
 ====TOTAL CONFIRMED TRAININGS===GRAPH 2=====
 
 -----Pie Chart-----
+---Bar Graphs---
 
 //Total completed trainings, for all verticals, grouped by vertical
 //With month provided
