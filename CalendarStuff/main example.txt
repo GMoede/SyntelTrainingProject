@@ -1,0 +1,12 @@
+	public static void main(String[] s){
+		try{
+			//CalendarInfo(startDate, startTime, endTime, location, trainingName)
+			CalendarInfo newCal = new CalendarInfo("2004-11-24", "0700", "0900", "123 Maple St, Memphis, TN","Meeting", "Fedex Training");
+		TRMEmailAPI email = new TRMEmailAPI();
+		email.send("Griffin_Moede@syntelinc.com", "Test Subject", "<h1>This is actual message embedded in HTML tags</h1>", newCal);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		
+	}
